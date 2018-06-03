@@ -57,3 +57,12 @@ p {
 footer.page-footer {
   margin: 0;
 }
+
+/* Adding CSS to make sure all image are of same size */
+
+.card-image {
+
+ height: 300px;
+  
+}
+
