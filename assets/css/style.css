@@ -12,7 +12,11 @@
  nav .brand-logo {
    color: #444;
  }
- 
+ .card {
+
+  border: #444;
+ }
+
  p {
    line-height: 2rem;
  }
