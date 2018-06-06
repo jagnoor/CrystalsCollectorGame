@@ -21,6 +21,7 @@ var targetNumber = " "; // number to beat
 var wins = 0;   // tracks the number of wins 
 var losses = 0; // tracks number of lossess 
 var counter = 0; // 
+var images = ['assets/images/S1.jpg','assets/images/S2.jpg','assets/images/S3.jpg','assets/images/S4.jpg'];
 
 
 // generates a number between 19 - 120 () //
@@ -28,12 +29,23 @@ var counter = 0; //
 		targetNumber = Math.floor(Math.random() * 102) + 19;  
     }
 
-    function resetCrystals () {
-		
+	function resetCrystals () {
+		for (var i = 0; i < images.length; i++) {
 			var crystal = $("<img>");
-			crystal.addClass('crystal');
+			crystal.addClass("crystal", "col s3");
+			crystal.addClass("col s3");
+			crystal.attr("src", images[i]);
+			crystal.attr("height", "100");
 			crystal.attr("value", (Math.floor(Math.random() * 12) + 1));
-			$(".card").append(crystal);		
+			$(".cards").append(crystal);
+		}
+	}
+
+	function resetHTML () {
+		$(".target-number").html(targetNumber);
+		$(".win-lose-counter").html("<p>Wins: " + wins + "</p>" + "<p>Losses: " + losses + "</p>");
+		$(".score-number").html(counter);
+		$(".cards").empty();
 	}
 
 	    
@@ -45,67 +57,16 @@ var counter = 0; //
 	}
 
 
-	function resetHTML () {
-		$(".target-number").html(targetNumber);
-		$(".win-lose-counter").html("<p>Wins: " + wins + "</p>" + "<p>Losses: " + losses + "</p>");
-		$(".score-number").html(counter);
-		$(".card").empty();
-	}
+// Running the game and caloing my functions
+
+	// Inital Page Set Up , READY TO GO 
+	randomTargetNumber(); // calling function to create the target number
+	resetHTML (); // resetting old score with new values
+	resetCrystals (); // resetting values on my crystals
 
 
 
-
-
-
-    //
-
-    // Institute Variables
-
-var targetNumber = "";
-var wins = 0;
-var losses = 0;
-var counter = 0;
-var images = ["./assets/images/Crystal-Blue.png", "./assets/images/Crystal-Purple.png", "./assets/images/Crystal-Red.png", "./assets/images/Crystal-Yellow.png"];
-
-// Functions
-
-	function randomTargetNumber () {
-		targetNumber = Math.floor(Math.random() * 102) + 19;
-	}
-
-	function resetCrystals () {
-		for (var i = 0; i < images.length; i++) {
-			var crystal = $("<img>");
-			crystal.addClass("crystal");
-			crystal.attr("src", images[i]);
-			crystal.attr("value", (Math.floor(Math.random() * 12) + 1));
-			crystal.attr("height", "100");
-			$(".crystal-images").append(crystal);
-		}
-	}
-
-	function resetHTML () {
-		$(".target-number").html(targetNumber);
-		$(".win-lose-counter").html("<p>Wins: " + wins + "</p>" + "<p>Losses: " + losses + "</p>");
-		$(".score-number").html(counter);
-		$(".crystal-images").empty();
-	}
-
-	function totalReset () {
-		randomTargetNumber ();
-		counter = 0;
-		resetHTML ();
-		resetCrystals ();
-	}
-
-// Running Code
-
-	// Inital Page Set Up
-	randomTargetNumber();
-	resetHTML ();
-	resetCrystals ();
-
-// Click Functions
+	// Click Functions
 	function crystalClick () {
 		//attr returns first value of selected html element
 		counter += parseInt($(this).attr("value"));
@@ -120,5 +81,9 @@ var images = ["./assets/images/Crystal-Blue.png", "./assets/images/Crystal-Purpl
 		};
 	};
 
-	//Throughout life cycle of the document, accounting for every single time document is dynamically changed execute crystalClick function
+	//Throughout life cycle of the document, accounting for every single time document 
+	//is dynamically changed execute crystalClick function
+	
 	$(document).on("click", ".crystal", crystalClick);
+
+
