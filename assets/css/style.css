@@ -12,13 +12,14 @@
  nav .brand-logo {
    color: #444;
  }
- 
+
+
  p {
    line-height: 2rem;
  }
  
  .sidenav-trigger {
-   color: #26a69a;
+   color: #ff3300;
  }
  
  .parallax-container {
@@ -60,9 +61,8 @@
  
  /* Adding CSS to make sure all image are of same size */
  
- .card-image {
+ .card {
  
-  height: 300px;
    
  }
  
