@@ -17,37 +17,40 @@
 //else win if its EQUAL to random number
 
 
-var targetNumber = ""; // number to beat 
+var targetNumber = " "; // number to beat 
 var wins = 0;   // tracks the number of wins 
 var losses = 0; // tracks number of lossess 
 var counter = 0; // 
 
 
-
+// generates a number between 19 - 120 () //
     function randomTargetNumber () {
-		targetNumber = Math.floor(Math.random() * 102) + 19;  // generates a number between 19 - 120 () //
+		targetNumber = Math.floor(Math.random() * 102) + 19;  
     }
-
-    
-    function totalReset () {
-		targetNumber_tobeat ();
-		counter = 0;
-		resetHTML ();
-		resetCrystals ();
-    }
-    
 
     function resetCrystals () {
 		
-			var crystal ;
+			var crystal = $("<img>");
+			crystal.addClass('crystal');
 			crystal.attr("value", (Math.floor(Math.random() * 12) + 1));
-			$(".card").append(crystal);
-		
+			$(".card").append(crystal);		
+	}
+
+	    
+	function totalReset () {
+		randomTargetNumber ();
+		counter = 0;
+		resetHTML ();
+		resetCrystals ();
 	}
 
 
-
-
+	function resetHTML () {
+		$(".target-number").html(targetNumber);
+		$(".win-lose-counter").html("<p>Wins: " + wins + "</p>" + "<p>Losses: " + losses + "</p>");
+		$(".score-number").html(counter);
+		$(".card").empty();
+	}
 
 
 
