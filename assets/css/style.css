@@ -9,32 +9,32 @@
 
  .container {
 
-  font-family: 'Fredericka the Great', cursive;
+  font-family: 'Permanent Marker', cursive;
  }
 
  nav ul a,
  nav .brand-logo {
    color: #444;
-   font-family: 'Fredericka the Great', cursive;
+   font-family: 'Permanent Marker', cursive;
  }
 
 
  p {
    line-height: 2rem;
-   font-family: 'Fredericka the Great', cursive;
+   font-family: 'Permanent Marker', cursive;
  }
  
  .sidenav-trigger {
-   color: #ff3300;
+   color: #00ff55;
  }
  
  .parallax-container {
-   min-height: 320px;
+   min-height: 350px;
    line-height: 0;
    height: auto;
    color: rgba(255,255,255,.9);
  }
-   .parallax-container .section {
+  .parallax-container .section {
      width: 100%;
    }
  
@@ -67,9 +67,6 @@
  
  /* Adding CSS to make sure all image are of same size */
  
- .card {
- 
-   
- }
+
  
  
