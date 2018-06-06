@@ -35,7 +35,7 @@ var images = ['assets/images/S1.jpg','assets/images/S2.jpg','assets/images/S3.jp
 			crystal.addClass("crystal", "col s3");
 			crystal.addClass("col s3");
 			crystal.attr("src", images[i]);
-			crystal.attr("height", "100");
+			crystal.attr("height", "300");
 			crystal.attr("value", (Math.floor(Math.random() * 12) + 1));
 			$(".cards").append(crystal);
 		}
