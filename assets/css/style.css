@@ -7,15 +7,21 @@
  */
 
 
+ .container {
+
+  font-family: 'Fredericka the Great', cursive;
+ }
 
  nav ul a,
  nav .brand-logo {
    color: #444;
+   font-family: 'Fredericka the Great', cursive;
  }
 
 
  p {
    line-height: 2rem;
+   font-family: 'Fredericka the Great', cursive;
  }
  
  .sidenav-trigger {
@@ -23,7 +29,7 @@
  }
  
  .parallax-container {
-   min-height: 380px;
+   min-height: 320px;
    line-height: 0;
    height: auto;
    color: rgba(255,255,255,.9);
