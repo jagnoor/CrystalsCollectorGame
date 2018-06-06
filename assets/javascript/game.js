@@ -48,6 +48,9 @@ var images = ['assets/images/S1.jpg','assets/images/S2.jpg','assets/images/S3.jp
 		$(".cards").empty();
 	}
 
+
+	// very painful lesson "card " is a materialize object with float on both sides. 6 hours of my life i will 
+	// never get back ..... // chnaged to cards andeverything worked.....
 	    
 	function totalReset () {
 		randomTargetNumber ();
@@ -66,10 +69,9 @@ var images = ['assets/images/S1.jpg','assets/images/S2.jpg','assets/images/S3.jp
 
 
 
-	// Click Functions
-	function crystalClick () {
-		//attr returns first value of selected html element
-		counter += parseInt($(this).attr("value"));
+	// Click Functions are soooo much FUN !!! once you figure them out... 
+	function crystalClick () {		
+		counter += parseInt($(this).attr("value"));   //attr returns first value of selected html element
 		$(".score-number").html(counter);
 		if (counter == targetNumber) {
 			wins++;
@@ -80,6 +82,7 @@ var images = ['assets/images/S1.jpg','assets/images/S2.jpg','assets/images/S3.jp
 			totalReset();
 		};
 	};
+
 
 	//Throughout life cycle of the document, accounting for every single time document 
 	//is dynamically changed execute crystalClick function
