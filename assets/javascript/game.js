@@ -68,7 +68,7 @@ var images = ['assets/images/S1.jpg','assets/images/S2.jpg','assets/images/S3.jp
 	// Click Functions are soooo much FUN !!! once you figure them out... 
 	function crystalClick () {		
 		counter += parseInt($(this).attr("value"));   //attr returns first value of selected html element
-		$(".score-number").html(counter);
+		$(".score-number").html(counter);				//this takes the value of the counter and inserts it into score-number class
 		if (counter == targetNumber) {
 			wins++;
 			totalReset();
