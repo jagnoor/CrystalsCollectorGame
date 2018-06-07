@@ -8,20 +8,19 @@
 
 
  .container {
-
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Nunito Sans', sans-serif;
  }
 
  nav ul a,
  nav .brand-logo {
    color: #444;
-   font-family: 'Permanent Marker', cursive;
+   font-family: 'Nunito Sans', sans-serif;
  }
 
 
  p {
    line-height: 2rem;
-   font-family: 'Permanent Marker', cursive;
+   
  }
  
  .sidenav-trigger {
@@ -29,11 +28,10 @@
  }
  
  .parallax-container {
+   padding-top: 80px;
    min-height: 350px;
-   line-height: 0;
-  
-   color: rgba(255,255,255,.9);
-   opacity: 0.5;
+   line-height: 0;  
+   color: rgba(255,255,255,.9);   
  }
   .parallax-container .section {
      width: 100%;
