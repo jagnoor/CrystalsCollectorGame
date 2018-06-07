@@ -12,7 +12,7 @@
 
 //Generate a new random number to beat every time a new game starts
 //Generate a new random number every time the a new game starts for the 4 crystals
-//when i click a crustal it should add the previous total , untill it equals the random result 
+//when i click a crystal it should add the previous total , untill it equals the random result 
 //if the total is > random_result then display loss
 //else win if its EQUAL to random number
 
@@ -48,7 +48,6 @@ var images = ['assets/images/S1.jpg','assets/images/S2.jpg','assets/images/S3.jp
 		$(".cards").empty();
 	}
 
-
 	// very painful lesson "card " is a materialize object with float on both sides. 6 hours of my life i will 
 	// never get back ..... // chnaged to cards andeverything worked.....
 	    
@@ -59,15 +58,12 @@ var images = ['assets/images/S1.jpg','assets/images/S2.jpg','assets/images/S3.jp
 		resetCrystals ();
 	}
 
-
 // Running the game and caloing my functions
 
 	// Inital Page Set Up , READY TO GO 
 	randomTargetNumber(); // calling function to create the target number
 	resetHTML (); // resetting old score with new values
 	resetCrystals (); // resetting values on my crystals
-
-
 
 	// Click Functions are soooo much FUN !!! once you figure them out... 
 	function crystalClick () {		
