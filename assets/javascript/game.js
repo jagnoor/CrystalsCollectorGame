@@ -48,8 +48,8 @@ var images = ['assets/images/S1.jpg','assets/images/S2.jpg','assets/images/S3.jp
 		$(".cards").empty();
 	}
 
-	// very painful lesson "card " is a materialize object with float on both sides. 6 hours of my life i will 
-	// never get back ..... // chnaged to cards andeverything worked.....
+	// very painful lesson "card " is a materialize LIBRARY object with float on both sides. 6 hours of my life i will 
+	// never get back ..... // changed the class to cards and everything worked..... 
 	    
 	function totalReset () {
 		randomTargetNumber ();
