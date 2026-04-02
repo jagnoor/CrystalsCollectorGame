@@ -1,138 +1,195 @@
-// Crystal Skull Collector Game
-// Click crystals to match the target number. Go over and you lose!
+// Crystal Skull Collector — Game Logic
+// Match the target number by clicking skulls. Exceed it and you're cursed.
 
 var targetNumber = 0;
 var wins = 0;
 var losses = 0;
 var counter = 0;
+var gameActive = true;
 var images = [
-  'assets/images/S1.jpg',
-  'assets/images/S2.jpg',
-  'assets/images/S3.jpg',
-  'assets/images/S4.jpg'
+  { src: 'assets/images/S1.jpg', label: 'Skull I' },
+  { src: 'assets/images/S2.jpg', label: 'Skull II' },
+  { src: 'assets/images/S3.jpg', label: 'Skull III' },
+  { src: 'assets/images/S4.jpg', label: 'Skull IV' }
 ];
 
-// Generate random target between 19 - 120
+// Random target between 19–120
 function randomTargetNumber() {
   targetNumber = Math.floor(Math.random() * 102) + 19;
 }
 
-// Build crystal card elements
+// Build crystal skull cards
 function resetCrystals() {
-  $(".cards").empty();
+  var $grid = $(".cards");
+  $grid.empty();
   for (var i = 0; i < images.length; i++) {
-    var card = $("<div>").addClass("crystal-card");
-    var crystal = $("<img>");
-    crystal.addClass("crystal");
-    crystal.attr("src", images[i]);
-    crystal.attr("alt", "Crystal Skull " + (i + 1));
-    crystal.attr("data-value", Math.floor(Math.random() * 12) + 1);
-    card.append(crystal);
-    $(".cards").append(card);
+    var value = Math.floor(Math.random() * 12) + 1;
+    var card = $("<div>")
+      .addClass("crystal-card")
+      .attr("tabindex", "0")
+      .attr("role", "button")
+      .attr("aria-label", images[i].label + " — click to add points");
+
+    var img = $("<img>")
+      .addClass("crystal")
+      .attr("src", images[i].src)
+      .attr("alt", images[i].label)
+      .attr("data-value", value);
+
+    var label = $("<span>")
+      .addClass("crystal-label")
+      .text(images[i].label);
+
+    card.append(img).append(label);
+    $grid.append(card);
   }
 }
 
-// Update the dashboard display
+// Update all dashboard numbers
 function updateDisplay() {
   $(".target-number").text(targetNumber);
   $(".score-number").text(counter);
   $(".wins-number").text(wins);
   $(".losses-number").text(losses);
+  updateProgress();
 }
 
-// Show win/lose message with animation
+// Update progress bar
+function updateProgress() {
+  var pct = targetNumber > 0 ? Math.min((counter / targetNumber) * 100, 100) : 0;
+  var $bar = $("#progress-bar");
+  var $wrap = $(".progress-wrap");
+
+  $bar.css("width", pct + "%");
+  $("#progress-label").text(Math.round(pct) + "%");
+  $wrap.attr("aria-valuenow", Math.round(pct));
+
+  // Color states
+  $bar.removeClass("danger safe");
+  if (pct >= 90) {
+    $bar.addClass("danger");
+  } else if (pct >= 60) {
+    // default gradient
+  }
+}
+
+// Show win/lose message
 function showMessage(type) {
-  var msg = $("#game-message");
-  msg.removeClass("show win lose");
+  var $msg = $("#game-message");
+  $msg.removeClass("show win lose");
 
   if (type === "win") {
-    msg.text("You Win! The skulls favour you.");
-    msg.addClass("win");
+    $msg.text("The skulls accept your offering!");
+    $msg.addClass("win");
   } else {
-    msg.text("You Lose! The curse strikes.");
-    msg.addClass("lose");
+    $msg.text("The curse consumes you!");
+    $msg.addClass("lose");
+    // Screen shake on loss
+    $("body").addClass("shake");
+    setTimeout(function() { $("body").removeClass("shake"); }, 400);
   }
 
-  // Trigger reflow then show
-  msg[0].offsetWidth;
-  msg.addClass("show");
+  // Force reflow then show
+  $msg[0].offsetWidth;
+  $msg.addClass("show");
 
-  setTimeout(function () {
-    msg.removeClass("show");
-  }, 1500);
+  setTimeout(function() {
+    $msg.removeClass("show");
+  }, 1800);
 }
 
-// Full game reset
+// Full reset
 function totalReset() {
+  gameActive = true;
   randomTargetNumber();
   counter = 0;
   updateDisplay();
   resetCrystals();
 }
 
-// Create floating particles
-function createParticles() {
-  var container = document.getElementById("particles");
+// Create floating ember particles
+function createEmbers() {
+  var container = document.getElementById("embers");
   if (!container) return;
-  var colors = ["#8b5cf6", "#06b6d4", "#f59e0b", "#22c55e"];
+  var colors = ["#c42a2a", "#d97706", "#b91c1c", "#92400e"];
 
-  for (var i = 0; i < 30; i++) {
-    var particle = document.createElement("div");
-    particle.classList.add("particle");
-    var size = Math.random() * 6 + 2;
-    particle.style.width = size + "px";
-    particle.style.height = size + "px";
-    particle.style.left = Math.random() * 100 + "%";
-    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-    particle.style.animationDuration = Math.random() * 15 + 10 + "s";
-    particle.style.animationDelay = Math.random() * 10 + "s";
-    container.appendChild(particle);
+  for (var i = 0; i < 25; i++) {
+    var dot = document.createElement("div");
+    dot.classList.add("ember-dot");
+    var size = Math.random() * 4 + 1.5;
+    dot.style.width = size + "px";
+    dot.style.height = size + "px";
+    dot.style.left = Math.random() * 100 + "%";
+    dot.style.bottom = "-5%";
+    dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+    dot.style.boxShadow = "0 0 " + (size * 2) + "px " + dot.style.background;
+    dot.style.animationDuration = (Math.random() * 12 + 8) + "s";
+    dot.style.animationDelay = (Math.random() * 8) + "s";
+    container.appendChild(dot);
   }
 }
 
-// Initialize
-$(document).ready(function () {
-  createParticles();
-  randomTargetNumber();
+// Handle crystal click (or keyboard Enter/Space)
+function handleCrystalActivate(cardEl) {
+  if (!gameActive) return;
+
+  var $card = $(cardEl);
+  var $crystal = $card.find(".crystal");
+  var value = parseInt($crystal.attr("data-value"));
+  counter += value;
   updateDisplay();
-  resetCrystals();
 
-  // Crystal click handler (delegated for dynamically created elements)
-  $(document).on("click", ".crystal-card", function () {
-    var crystal = $(this).find(".crystal");
-    var value = parseInt(crystal.attr("data-value"));
-    counter += value;
+  // Pulse animation
+  $card.removeClass("clicked");
+  cardEl.offsetWidth; // reflow
+  $card.addClass("clicked");
+  setTimeout(function() { $card.removeClass("clicked"); }, 500);
+
+  // Score pop
+  var $pop = $("<div>").addClass("score-pop").text("+" + value);
+  $card.append($pop);
+  setTimeout(function() { $pop.remove(); }, 900);
+
+  // Bump score card
+  $(".dash-score").css("transform", "scale(1.08)");
+  setTimeout(function() { $(".dash-score").css("transform", "scale(1)"); }, 200);
+
+  // Win / Lose check
+  if (counter === targetNumber) {
+    gameActive = false;
+    wins++;
     updateDisplay();
+    showMessage("win");
+    setTimeout(totalReset, 2000);
+  } else if (counter > targetNumber) {
+    gameActive = false;
+    losses++;
+    updateDisplay();
+    showMessage("lose");
+    setTimeout(totalReset, 2000);
+  }
+}
 
-    // Click animation on the card
-    $(this).addClass("clicked");
-    var self = this;
-    setTimeout(function () {
-      $(self).removeClass("clicked");
-    }, 500);
+// ===== Init =====
+$(document).ready(function() {
+  createEmbers();
+  totalReset();
 
-    // Score pop effect
-    var pop = $("<div>").addClass("score-pop").text("+" + value);
-    $(this).append(pop);
-    setTimeout(function () {
-      pop.remove();
-    }, 800);
+  // Click handler
+  $(document).on("click", ".crystal-card", function() {
+    handleCrystalActivate(this);
+  });
 
-    // Animate the score number
-    $(".score-card").css("transform", "scale(1.1)");
-    setTimeout(function () {
-      $(".score-card").css("transform", "scale(1)");
-    }, 200);
-
-    // Check win/lose
-    if (counter === targetNumber) {
-      wins++;
-      showMessage("win");
-      setTimeout(totalReset, 1600);
-    } else if (counter > targetNumber) {
-      losses++;
-      showMessage("lose");
-      setTimeout(totalReset, 1600);
+  // Keyboard handler (Enter / Space on focused card)
+  $(document).on("keydown", ".crystal-card", function(e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleCrystalActivate(this);
     }
+  });
+
+  // New Game button
+  $("#btn-newgame").on("click", function() {
+    totalReset();
   });
 });

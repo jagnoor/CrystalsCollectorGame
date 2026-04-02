@@ -4,104 +4,153 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Crystal Skull Collector</title>
+    <title>Crystal Skull Collector &mdash; Dare to Play</title>
+    <meta name="description" content="An eerie number-matching game. Click the cursed crystal skulls and try to hit the target score exactly.">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Cinzel:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Custom Styles -->
-    <link href="assets/css/style.css" type="text/css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
   </head>
   <body>
 
-    <!-- Floating particles background -->
-    <div class="particles" id="particles"></div>
+    <!-- Skip to content for accessibility -->
+    <a href="#game" class="skip-link">Skip to game</a>
 
-    <!-- Hero Section -->
-    <header class="hero" id="hero">
-      <div class="hero-overlay"></div>
+    <!-- Fog overlay -->
+    <div class="fog-layer" aria-hidden="true">
+      <div class="fog fog-1"></div>
+      <div class="fog fog-2"></div>
+    </div>
+
+    <!-- Floating embers -->
+    <div class="embers" id="embers" aria-hidden="true"></div>
+
+    <!-- ====== HERO ====== -->
+    <header class="hero" role="banner">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
       <div class="hero-content">
-        <h1 class="hero-title">Crystal Skull Collector</h1>
-        <p class="hero-subtitle">Unravel the ancient mystery. Match the target to claim victory.</p>
-        <a href="#game" class="hero-cta">
-          <i class="fas fa-gem"></i> Play Now
+        <div class="skull-icon" aria-hidden="true">
+          <i class="fas fa-skull"></i>
+        </div>
+        <h1 class="hero-title">Crystal Skull<br>Collector</h1>
+        <p class="hero-tagline">The cursed skulls whisper&hellip; can you resist their call?</p>
+        <a href="#game" class="btn-play" role="button">
+          <i class="fas fa-skull-crossbones" aria-hidden="true"></i>
+          <span>Enter the Crypt</span>
         </a>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <i class="fas fa-chevron-down"></i>
       </div>
     </header>
 
-    <!-- Rules Section -->
-    <section class="rules-section" id="rules">
+    <!-- ====== HOW TO PLAY ====== -->
+    <section class="rules-section" id="rules" aria-labelledby="rules-heading">
       <div class="container">
-        <h2 class="section-title">Rules of the Game</h2>
-        <div class="rules-grid">
-          <div class="rule-card">
-            <div class="rule-icon"><i class="fas fa-dice"></i></div>
-            <p>A random target number is generated at the start of each game.</p>
-          </div>
-          <div class="rule-card">
-            <div class="rule-icon"><i class="fas fa-hand-pointer"></i></div>
-            <p>Click on any crystal skull to add its hidden value to your score.</p>
-          </div>
-          <div class="rule-card">
-            <div class="rule-icon"><i class="fas fa-trophy"></i></div>
-            <p>Match your score exactly to the target number to win!</p>
-          </div>
-          <div class="rule-card">
-            <div class="rule-icon"><i class="fas fa-skull-crossbones"></i></div>
-            <p>Go over the target and you lose. Crystal values change each round.</p>
-          </div>
+        <h2 class="section-heading" id="rules-heading">
+          <i class="fas fa-book-skull" aria-hidden="true"></i>
+          How to Play
+        </h2>
+        <div class="rules-grid" role="list">
+          <article class="rule-card" role="listitem">
+            <div class="rule-number" aria-hidden="true">I</div>
+            <h3 class="rule-title">The Target</h3>
+            <p>A cursed number appears. This is your target. You must match it exactly.</p>
+          </article>
+          <article class="rule-card" role="listitem">
+            <div class="rule-number" aria-hidden="true">II</div>
+            <h3 class="rule-title">The Skulls</h3>
+            <p>Four crystal skulls await. Each holds a secret value between 1 and 12.</p>
+          </article>
+          <article class="rule-card" role="listitem">
+            <div class="rule-number" aria-hidden="true">III</div>
+            <h3 class="rule-title">The Risk</h3>
+            <p>Click a skull to add its value to your score. But exceed the target and you lose.</p>
+          </article>
+          <article class="rule-card" role="listitem">
+            <div class="rule-number" aria-hidden="true">IV</div>
+            <h3 class="rule-title">The Curse</h3>
+            <p>Each new round reshuffles all skull values. Nothing stays the same.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- Game Section -->
-    <section class="game-section" id="game">
+    <!-- ====== GAME ====== -->
+    <section class="game-section" id="game" aria-labelledby="game-heading">
       <div class="container">
-        <h2 class="section-title">Choose Your Crystal</h2>
+        <h2 class="section-heading" id="game-heading">
+          <i class="fas fa-hand-sparkles" aria-hidden="true"></i>
+          Choose Your Skull
+        </h2>
 
-        <!-- Score Dashboard -->
-        <div class="dashboard">
-          <div class="dash-card target-card">
+        <!-- Dashboard -->
+        <div class="dashboard" role="status" aria-live="polite" aria-label="Game score">
+          <div class="dash-cell dash-target">
             <span class="dash-label">Target</span>
-            <span class="dash-value target-number">0</span>
+            <span class="dash-value target-number" aria-label="Target number">0</span>
           </div>
-          <div class="dash-card score-card">
-            <span class="dash-label">Your Score</span>
-            <span class="dash-value score-number">0</span>
+          <div class="dash-cell dash-score">
+            <span class="dash-label">Score</span>
+            <span class="dash-value score-number" aria-label="Current score">0</span>
           </div>
-          <div class="dash-card wins-card">
+          <div class="dash-cell dash-wins">
             <span class="dash-label">Wins</span>
-            <span class="dash-value wins-number">0</span>
+            <span class="dash-value wins-number" aria-label="Win count">0</span>
           </div>
-          <div class="dash-card losses-card">
+          <div class="dash-cell dash-losses">
             <span class="dash-label">Losses</span>
-            <span class="dash-value losses-number">0</span>
+            <span class="dash-value losses-number" aria-label="Loss count">0</span>
           </div>
         </div>
 
-        <!-- Game result flash message -->
-        <div class="game-message" id="game-message"></div>
+        <!-- Progress bar -->
+        <div class="progress-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Score progress toward target">
+          <div class="progress-bar" id="progress-bar"></div>
+          <div class="progress-label" id="progress-label">0%</div>
+        </div>
+
+        <!-- Game result flash -->
+        <div class="game-message" id="game-message" role="alert" aria-live="assertive"></div>
 
         <!-- Crystal Cards -->
-        <div class="crystals-container cards"></div>
+        <div class="crystals-grid cards" role="group" aria-label="Crystal skulls to click"></div>
+
+        <!-- New Game button -->
+        <button class="btn-newgame" id="btn-newgame" aria-label="Start a new game">
+          <i class="fas fa-rotate" aria-hidden="true"></i> New Game
+        </button>
       </div>
     </section>
 
-    <!-- Lore Section -->
-    <section class="lore-section" id="lore">
-      <div class="lore-overlay"></div>
+    <!-- ====== LORE ====== -->
+    <section class="lore-section" id="lore" aria-labelledby="lore-heading">
+      <div class="lore-bg" aria-hidden="true"></div>
+      <div class="lore-overlay" aria-hidden="true"></div>
       <div class="container lore-content">
-        <h2 class="section-title light">The Mystery of the Crystal Skulls</h2>
-        <p>The famed crystal skulls of ancient Mesoamerica have been a source of mystery and controversy for decades. The handful of known skulls have defied even the most advanced scientific efforts to determine who made them, when, and most puzzling, how.</p>
+        <h2 class="section-heading section-heading--light" id="lore-heading">
+          <i class="fas fa-scroll" aria-hidden="true"></i>
+          The Legend
+        </h2>
+        <p>The famed crystal skulls of ancient Mesoamerica have been a source of mystery and controversy for decades. The handful of known skulls have defied even the most advanced scientific efforts to determine who made them, when, and most puzzling &mdash; how.</p>
         <p>Many believe these skulls were carved thousands of years ago by an ancient Mesoamerican civilization. Others think they may be relics from the legendary island of Atlantis or proof that extraterrestrials visited the Aztecs before the Spanish conquest.</p>
-        <blockquote>The search for answers continues&hellip;</blockquote>
+        <blockquote>
+          <i class="fas fa-quote-left" aria-hidden="true"></i>
+          The dead do not rest easily where the skulls are found&hellip;
+          <i class="fas fa-quote-right" aria-hidden="true"></i>
+        </blockquote>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-      <p>&copy; 2026 Crystal Skull Collector &mdash; A Game of Mystery &amp; Chance</p>
+    <!-- ====== FOOTER ====== -->
+    <footer class="site-footer" role="contentinfo">
+      <p><i class="fas fa-skull" aria-hidden="true"></i> Crystal Skull Collector &copy; 2026 &mdash; Play at your own risk.</p>
     </footer>
 
     <!-- jQuery -->
